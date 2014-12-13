@@ -1,6 +1,6 @@
 name: QuestionPower
 author: TerraStormDE
-version: v1.0
+version: v1.1
 main: de.TerraStormDE.QuestionPower.QuestionPower
 
 commands:
