@@ -6,6 +6,7 @@
 
 package de.TerraStormDE.QuestionPower.Listener;
 
+import de.TerraStormDE.QuestionPower.Enums.TQuestionAssistantValue;
 import de.TerraStormDE.QuestionPower.QuestionPower;
 import de.TerraStormDE.QuestionPower.Util.TQuestionAnswer;
 import de.TerraStormDE.QuestionPower.Util.TQuestionAssistant;
@@ -72,8 +73,15 @@ public class TQuestionListener implements Listener
     
     @EventHandler
     public void interact(PlayerInteractEvent e){
+        if(!e.getAction().toString().contains("RIGHT")){
+            return;
+        }
         TQuestionAssistant assistant = TQuestionAssistant.getAssistant(e.getPlayer());
         if(assistant != null){
+            if(assistant.getStep() != TQuestionAssistantValue.VOTE_ITEM){
+                e.setCancelled(true);
+                return;
+            }
             if(e.getPlayer().getItemInHand() != null && e.getPlayer().getItemInHand().getType() != Material.AIR){
                 assistant.getQuestion().setVoteItem(e.getPlayer().getItemInHand());
                 assistant.nextStep();
